@@ -98,7 +98,14 @@ function App() {
 
   const handleSendMessage = async (textToUse) => {
     const text = textToUse || inputText;
-    if (!text.trim() || !apiKey) return;
+    
+    if (!apiKey) {
+      setShowSettings(true);
+      setTimeout(() => alert("⚠️ Please enter your Gemini API Key in the Settings first!"), 100);
+      return;
+    }
+
+    if (!text.trim()) return;
 
     // Optional: Stop current speech synthesis if it's talking
     window.speechSynthesis.cancel();
@@ -269,16 +276,16 @@ function App() {
               <button className="close-btn" onClick={() => setShowSettings(false)}>✕</button>
             </div>
             <div className="modal-body">
-              <div className="form-group">
+              <div className="input-group">
                 <label>Gemini API Key</label>
                 <input type="password" value={apiKey} onChange={e => setApiKey(e.target.value)} placeholder="AI Model Key..." />
               </div>
-              <div className="form-group">
+              <div className="input-group">
                 <label>ElevenLabs API Key</label>
                 <input type="password" value={elevenLabsKey} onChange={e => setElevenLabsKey(e.target.value)} placeholder="Voice Engine Key (Optional)..." />
                 <small>Leave blank to use native browser TTS.</small>
               </div>
-              <button onClick={saveSettings} className="primary-btn">Save Configuration</button>
+              <button onClick={saveSettings} className="save-btn">Save Configuration</button>
             </div>
           </div>
         </div>

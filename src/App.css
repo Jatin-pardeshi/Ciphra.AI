@@ -544,9 +544,31 @@ body {
 
 .settings-content h2 {
     font-family: var(--font-heading);
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: white;
+    margin: 0;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 24px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: white;
 }
 
 .input-group {
@@ -571,6 +593,13 @@ body {
     font-family: var(--font-main);
     transition: all 0.2s;
     box-sizing: border-box;
+}
+
+.input-group small {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
 }
 
 .input-group input:focus {
