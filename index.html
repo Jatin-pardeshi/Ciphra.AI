@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ciphra Live2D</title>
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Silence third party library logs -->
+    <script>
+      const originalWarn = console.warn;
+      console.warn = function(...args) {
+        if (typeof args[0] === 'string' && args[0].includes('PixiJS Deprecation Warning')) return;
+        originalWarn.apply(console, args);
+      };
+      const originalLog = console.log;
+      console.log = function(...args) {
+        if (typeof args[0] === 'string' && args[0].includes('before _$Ri.draw()')) return;
+        if (typeof args[0] === 'string' && args[0].includes('profile : Desktop')) return;
+        if (typeof args[0] === 'string' && args[0].includes('[PROFILE_NAME]')) return;
+        if (typeof args[0] === 'string' && args[0].includes('[USE_ADJUST_TRANSLATION]')) return;
+        if (typeof args[0] === 'string' && args[0].includes('[USE_CACHED_POLYGON_IMAGE]')) return;
+        if (typeof args[0] === 'string' && args[0].includes('[EXPAND_W]')) return;
+        if (typeof args[0] === 'string' && args[0].includes('Live2D %s 2.1.00_1')) return;
+        originalLog.apply(console, args);
+      };
+    </script>
+    <!-- WebGL Patch for Broken GPU Drivers / Headless Browsers -->
+    <script>
+      (function() {
+        var origGetShaderParameter = WebGLRenderingContext.prototype.getShaderParameter;
+        var patchGetShaderParameter = function(shader, pname) {
+          if (pname === this.COMPILE_STATUS) return true;
+          return origGetShaderParameter.call(this, shader, pname);
+        };
+        WebGLRenderingContext.prototype.getShaderParameter = patchGetShaderParameter;
+        if (typeof WebGL2RenderingContext !== 'undefined') {
+          WebGL2RenderingContext.prototype.getShaderParameter = patchGetShaderParameter;
+        }
+
+        var origGetProgramParameter = WebGLRenderingContext.prototype.getProgramParameter;
+        var patchGetProgramParameter = function(program, pname) {
+          if (pname === this.LINK_STATUS) return true;
+          return origGetProgramParameter.call(this, program, pname);
+        };
+        WebGLRenderingContext.prototype.getProgramParameter = patchGetProgramParameter;
+        if (typeof WebGL2RenderingContext !== 'undefined') {
+          WebGL2RenderingContext.prototype.getProgramParameter = patchGetProgramParameter;
+        }
+      })();
+    </script>
+    <!-- Live2D SDKs -->
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/live2d.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      window.addEventListener('error', function(event) {
+        document.body.innerHTML += '<div style="position:fixed;top:0;left:0;background:red;color:white;z-index:9999;padding:20px;font-family:monospace;">' + event.error.stack + '</div>';
+      });
+      window.addEventListener('unhandledrejection', function(event) {
+        document.body.innerHTML += '<div style="position:fixed;top:0;left:0;background:red;color:white;z-index:9999;padding:20px;font-family:monospace;">Unhandled Promise Rejection: ' + (event.reason && event.reason.stack ? event.reason.stack : event.reason) + '</div>';
+      });
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

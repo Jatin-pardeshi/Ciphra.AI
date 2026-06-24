@@ -1,0 +1,31 @@
+{
+  "name": "ciphra-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "elevenlabs": "^1.59.0",
+    "live2d-widget": "^3.1.4",
+    "live2d-widget-model-shizuku": "^1.0.5",
+    "lucide-react": "^1.21.0",
+    "marked": "^18.0.5",
+    "pixi-live2d-display": "^0.4.0",
+    "pixi.js": "^7.3.3",
+    "puppeteer": "^25.2.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "oxlint": "^1.69.0",
+    "vite": "^8.1.0"
+  }
+}
